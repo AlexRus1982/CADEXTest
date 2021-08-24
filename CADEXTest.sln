@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GraphDraw", "GraphDraw\GraphDraw.csproj", "{EECD2B74-86F4-4893-B808-2B55220CDDFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConeTriangulation", "ConeTriangulation\ConeTriangulation.csproj", "{FF69C1B0-96F6-4794-9AEB-BD8BAF266334}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EECD2B74-86F4-4893-B808-2B55220CDDFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EECD2B74-86F4-4893-B808-2B55220CDDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EECD2B74-86F4-4893-B808-2B55220CDDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EECD2B74-86F4-4893-B808-2B55220CDDFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF69C1B0-96F6-4794-9AEB-BD8BAF266334}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF69C1B0-96F6-4794-9AEB-BD8BAF266334}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF69C1B0-96F6-4794-9AEB-BD8BAF266334}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF69C1B0-96F6-4794-9AEB-BD8BAF266334}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4D9C6D22-38E3-4854-9AB4-76CE6111C98D}
+	EndGlobalSection
+EndGlobal
