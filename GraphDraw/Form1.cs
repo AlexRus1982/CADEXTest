@@ -24,7 +24,7 @@ namespace GraphDraw {
             comboBox1.DisplayMember = "Text";
             comboBox1.ValueMember = "Value";
             for (int i = 0; i < 100; i++) {
-                Curve2D curve = Curve2D.MakeRandomCurve(panel1.Width, panel1.Height, /*135*/ (float)Math.PI * 0.25f);
+                Curve2D curve = Curve2D.MakeRandomCurve(panel1.Width, panel1.Height, /*135*/ (float)Math.PI * 0.25f /* PI/4 */);
                 curves.Add(curve);
                 comboBox1.Items.Add(new { Text = (comboBox1.Items.Count + 1) + " : " + curve.StringType(), Value = curve });
             }
@@ -69,6 +69,13 @@ namespace GraphDraw {
 
         public virtual void Draw(Graphics g) { }
 
+        public virtual Vector2 GetTPoint() {
+            return new Vector2(0, 0);
+        }
+
+        public virtual Vector2 GetDerivative() {
+            return new Vector2(0, 0);
+        }
     }
 
     public class Line : Curve2D {
@@ -78,6 +85,14 @@ namespace GraphDraw {
         private Vector2 e;
         private Vector2 tPoint;
         private float drawLen = 250.0f;
+
+        public override Vector2 GetTPoint() {
+            return o + d * t;
+        }
+
+        public override Vector2 GetDerivative() {
+            return d;
+        }
 
         /// <summary>
         /// Constructor that generate random line - curve
@@ -91,7 +106,7 @@ namespace GraphDraw {
             e = new Vector2((float)rnd.NextDouble() * xMax, (float)rnd.NextDouble() * yMax);
             d = Vector2.Normalize(e - o);
             t = pt;
-            tPoint = o + d * t;
+            tPoint = GetTPoint();
         }
 
         /// <summary>
@@ -106,15 +121,15 @@ namespace GraphDraw {
             d = Vector2.Normalize(dir);
             e = o + d * drawLen;
             t = pt;
-            tPoint = o + d * t;
+            tPoint = GetTPoint();
         }
 
         public override string ToString() {
             string s = curveType + Environment.NewLine;
             s += "--------------------------------------" + Environment.NewLine;
             s += "start point : " + o + Environment.NewLine;
-            s += "t point : " + tPoint + Environment.NewLine;
-            s += "derivative : " + d + Environment.NewLine;
+            s += "t point : " + GetTPoint() + Environment.NewLine;
+            s += "derivative : " + GetDerivative() + Environment.NewLine;
             string ts = ((int)(t * 1000) != (int)(Math.PI * 250.0f)) ? "" + t : "PI/4";
             s += "t = " + ts + Environment.NewLine;
             return s;
@@ -147,6 +162,19 @@ namespace GraphDraw {
         private Vector2 dPoint;
         private Vector2 derivative;
 
+        public override Vector2 GetTPoint() {
+            return new Vector2((float)(xR * Math.Cos(Math.PI * t / 180.0f)),
+                               (float)(yR * Math.Sin(Math.PI * t / 180.0f))) * 0.5f + o;
+        }
+
+        public override Vector2 GetDerivative() {
+            tPoint = GetTPoint();
+            dPoint = new Vector2((float)(xR * Math.Cos(Math.PI * (t + dt) / 180.0f)),
+                                 (float)(yR * Math.Sin(Math.PI * (t + dt) / 180.0f))) * 0.5f + o;
+
+            return Vector2.Normalize(dPoint - tPoint);
+        }
+
         /// <summary>
         /// Constructor that generate random ellipse - curve
         /// </summary>
@@ -159,15 +187,7 @@ namespace GraphDraw {
             xR = (float)rnd.NextDouble() * xMax;
             yR = (float)rnd.NextDouble() * yMax;
             t = pt;
-
-            tPoint = new Vector2((float)(xR * Math.Cos(Math.PI * t / 180.0f)),
-                                 (float)(yR * Math.Sin(Math.PI * t / 180.0f))) * 0.5f + o;
-
-            dPoint = new Vector2((float)(xR * Math.Cos(Math.PI * (t + dt) / 180.0f)),
-                                 (float)(yR * Math.Sin(Math.PI * (t + dt) / 180.0f))) * 0.5f + o;
-
-            derivative = Vector2.Normalize(dPoint - tPoint);
-
+            derivative = GetDerivative();
         }
 
         /// <summary>
@@ -183,15 +203,7 @@ namespace GraphDraw {
             xR = (float)rnd.NextDouble() * radiusX;
             yR = (float)rnd.NextDouble() * radiusY;
             t = pt;
-
-            tPoint = new Vector2((float)(xR * Math.Cos(Math.PI * t / 180.0f)),
-                                 (float)(yR * Math.Sin(Math.PI * t / 180.0f))) * 0.5f + o;
-
-            dPoint = new Vector2((float)(xR * Math.Cos(Math.PI * (t + dt) / 180.0f)),
-                                 (float)(yR * Math.Sin(Math.PI * (t + dt) / 180.0f))) * 0.5f + o;
-
-            derivative = Vector2.Normalize(dPoint - tPoint);
-
+            derivative = GetDerivative();
         }
 
         public override string ToString() {
@@ -200,8 +212,8 @@ namespace GraphDraw {
             s += "center point : " + o + Environment.NewLine;
             s += "X radius : " + xR + Environment.NewLine;
             s += "Y radius : " + yR + Environment.NewLine;
-            s += "t point : " + tPoint + Environment.NewLine;
-            s += "derivative : " + derivative + Environment.NewLine;
+            s += "t point : " + GetTPoint() + Environment.NewLine;
+            s += "derivative : " + GetDerivative() + Environment.NewLine;
             string ts = ((int)(t * 1000) != (int)(Math.PI * 250.0f)) ? "" + t : "PI/4";
             s += "t = " + ts + Environment.NewLine;
             return s;

@@ -63,9 +63,9 @@ namespace GraphDraw {
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(13, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 13);
+            this.label1.Size = new System.Drawing.Size(73, 13);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Chose curve";
+            this.label1.Text = "Choose curve";
             // 
             // Form1
             // 
